@@ -11,17 +11,17 @@ class App extends Component {
     super(props);
     this.looseValue = -5;
     this.winValue = 10;
-    this.allColors = ["green", "red", "blue", "yellow"];
+    this.colors = ["green", "red", "blue", "yellow"];
     this.state = {
-      colors: shuffle(this.allColors),
+      currentColors: shuffle(this.colors),
       score: 0,
-      currentColor: this.allColors[this.getRandomVaue()],
-      distactiveColor: this.allColors[this.getRandomVaue()]
+      currentColor: this.colors[this.getRandomVaue()],
+      distractiveColor: this.colors[this.getRandomVaue()]
     };
   }
 
   getRandomVaue() {
-    return Math.floor(Math.random() * this.allColors.length);
+    return Math.floor(Math.random() * this.colors.length);
   }
 
   isCurrentColor(selectedColor) {
@@ -36,9 +36,9 @@ class App extends Component {
       }
       return {
         score: state.score + operand,
-        colors: shuffle(state.colors),
-        currentColor: this.allColors[this.getRandomVaue()],
-        distactiveColor: this.allColors[this.getRandomVaue()]
+        colors: shuffle(this.state.currentColors),
+        currentColor: this.colors[this.getRandomVaue()],
+        distractiveColor: this.colors[this.getRandomVaue()]
       };
     });
   }
@@ -48,11 +48,11 @@ class App extends Component {
       <div className="game">
         <CurrentColor
           currentColor={this.state.currentColor}
-          distactiveColor={this.state.distactiveColor}
+          distractiveColor={this.state.distractiveColor}
         />
         <ScoreDisplay score={this.state.score} />
         <ColorsContainer
-          colors={this.state.colors}
+          colors={this.state.currentColors}
           updateScore={this.updateScore.bind(this)}
         />
       </div>
